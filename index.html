@@ -22,7 +22,7 @@
           <h1>Colorado Drive Map</h1>
           <p class="muted">
             A Colorado-only dark map with stronger terrain, route imports, and a
-            road pen that snaps between visible road lines.
+            road planner that routes between your clicked stops.
           </p>
         </section>
 
@@ -82,15 +82,15 @@
             <span class="state-pill" id="draw-mode-pill">Off</span>
           </div>
           <p class="muted" id="draw-mode-status">
-            Enable the pen, click one road, then click another road to snap a
-            purple segment between them.
+            Enable the pen, click a start point, then keep clicking to add
+            routed stops.
           </p>
           <div class="button-row">
             <button id="toggle-draw-mode" class="button button-primary" type="button">
               Enable pen
             </button>
             <button id="finish-draw" class="button" type="button" disabled>
-              Finish route
+              Save this route
             </button>
           </div>
           <button id="clear-draw" class="button button-ghost" type="button" disabled>
@@ -138,6 +138,7 @@
             <span>Total route distance</span>
             <strong id="total-distance">0.0 km</strong>
           </div>
+          <p class="muted">Use `Delete` to remove any saved route from this browser.</p>
           <ul class="route-list" id="route-list"></ul>
         </section>
 
@@ -156,8 +157,8 @@
             <span>Colorado boundary</span>
           </div>
           <div class="legend-item">
-            <span class="swatch overlay"></span>
-            <span>Sample scenic overlay</span>
+            <span class="swatch parks"></span>
+            <span>National park outline</span>
           </div>
         </section>
       </aside>
@@ -178,7 +179,7 @@
           </div>
           <p id="info-description">
             Click the map to inspect elevation, import GPX or GeoJSON routes, or
-            use the road pen to mark driven roads in purple.
+            use the road planner to mark driven roads in purple.
           </p>
           <p id="cursor-readout" class="muted">
             Cursor: move across Colorado to inspect approximate elevation.
