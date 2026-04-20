@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Colorado Drive Map: a standalone local-first viewer for terrain, roads, labels, and driven routes."
+      content="Colorado Drive Map: a standalone dark-mode Colorado road atlas with terrain, route import, and a snap-to-road drawing pen."
     />
     <title>Colorado Drive Map</title>
     <link
@@ -18,16 +18,19 @@
     <div class="app-shell">
       <aside class="sidebar">
         <section class="brand-block">
-          <p class="eyebrow">Standalone Colorado Mapping</p>
+          <p class="eyebrow">Colorado Road Atlas</p>
           <h1>Colorado Drive Map</h1>
           <p class="muted">
-            Open this file directly in your browser. No build step required.
-            Free online tiles provide the live map, terrain, roads, and labels.
+            A Colorado-only dark map with stronger terrain, route imports, and a
+            road pen that snaps between visible road lines.
           </p>
         </section>
 
         <section class="card">
-          <h2>Basemap</h2>
+          <div class="card-header">
+            <h2>Basemap</h2>
+            <span class="inline-note">Dark mode</span>
+          </div>
           <div class="control-group">
             <label class="choice">
               <input
@@ -64,13 +67,35 @@
             </label>
             <label class="choice">
               <input type="checkbox" id="toggle-hillshade" checked />
-              <span>Hillshade / terrain</span>
+              <span>Terrain relief</span>
             </label>
             <label class="choice">
               <input type="checkbox" id="toggle-driven" checked />
-              <span>Driven routes</span>
+              <span>Driven roads</span>
             </label>
           </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2>Road Pen</h2>
+            <span class="state-pill" id="draw-mode-pill">Off</span>
+          </div>
+          <p class="muted" id="draw-mode-status">
+            Enable the pen, click one road, then click another road to snap a
+            purple segment between them.
+          </p>
+          <div class="button-row">
+            <button id="toggle-draw-mode" class="button button-primary" type="button">
+              Enable pen
+            </button>
+            <button id="finish-draw" class="button" type="button" disabled>
+              Finish route
+            </button>
+          </div>
+          <button id="clear-draw" class="button button-ghost" type="button" disabled>
+            Clear draft
+          </button>
         </section>
 
         <section class="card">
@@ -80,8 +105,24 @@
             <input id="route-file" type="file" accept=".gpx,.geojson,.json" />
           </label>
           <p class="muted">
-            Imported routes are stored in your browser’s local storage on this
-            machine.
+            Imported routes stay in your browser on this machine.
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2>Colorado Coverage</h2>
+            <strong class="coverage-percent" id="coverage-percent">--%</strong>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="coverage-fill"></div>
+          </div>
+          <div class="stats-row">
+            <span>Approx roads driven</span>
+            <strong id="coverage-distance">0.0 / 0.0 km</strong>
+          </div>
+          <p class="muted" id="coverage-note">
+            Calculating a Colorado-wide road baseline from the loaded map tiles.
           </p>
         </section>
 
@@ -94,7 +135,7 @@
             </div>
           </div>
           <div class="stats-row">
-            <span>Total distance</span>
+            <span>Total route distance</span>
             <strong id="total-distance">0.0 km</strong>
           </div>
           <ul class="route-list" id="route-list"></ul>
@@ -104,7 +145,11 @@
           <h2>Legend</h2>
           <div class="legend-item">
             <span class="swatch driven"></span>
-            <span>Driven routes</span>
+            <span>Purple driven roads</span>
+          </div>
+          <div class="legend-item">
+            <span class="swatch draft"></span>
+            <span>Active pen draft</span>
           </div>
           <div class="legend-item">
             <span class="swatch boundary"></span>
@@ -119,21 +164,21 @@
 
       <main class="map-column">
         <section class="map-stage">
-          <div class="map-status" id="map-status">Loading map…</div>
+          <div class="map-status" id="map-status">Loading Colorado map...</div>
           <div id="map" class="map-container" aria-label="Colorado map"></div>
         </section>
 
         <section class="info-panel">
           <div class="info-heading">
             <div>
-              <p class="eyebrow">Selected Feature</p>
+              <p class="eyebrow">Inspector</p>
               <h2 id="info-title">Colorado Drive Map</h2>
             </div>
-            <span class="info-tag">Local-first</span>
+            <span class="info-tag">Colorado only</span>
           </div>
           <p id="info-description">
-            Import GPX or GeoJSON routes to highlight roads you have driven
-            across Colorado.
+            Click the map to inspect elevation, import GPX or GeoJSON routes, or
+            use the road pen to mark driven roads in purple.
           </p>
           <p id="cursor-readout" class="muted">
             Cursor: move across Colorado to inspect approximate elevation.
