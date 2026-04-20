@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Colorado Drive Map: a standalone local-first viewer for terrain, roads, labels, and driven routes."
+    />
+    <title>Colorado Drive Map</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@5.3.0/dist/maplibre-gl.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <section class="brand-block">
+          <p class="eyebrow">Standalone Colorado Mapping</p>
+          <h1>Colorado Drive Map</h1>
+          <p class="muted">
+            Open this file directly in your browser. No build step required.
+            Free online tiles provide the live map, terrain, roads, and labels.
+          </p>
+        </section>
+
+        <section class="card">
+          <h2>Basemap</h2>
+          <div class="control-group">
+            <label class="choice">
+              <input
+                type="radio"
+                name="basemap"
+                value="topo"
+                id="basemap-topo"
+                checked
+              />
+              <span>Topographic</span>
+            </label>
+            <label class="choice">
+              <input
+                type="radio"
+                name="basemap"
+                value="satellite"
+                id="basemap-satellite"
+              />
+              <span>Satellite</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Overlays</h2>
+          <div class="control-group">
+            <label class="choice">
+              <input type="checkbox" id="toggle-roads" checked />
+              <span>Roads</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" id="toggle-labels" checked />
+              <span>Labels</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" id="toggle-hillshade" checked />
+              <span>Hillshade / terrain</span>
+            </label>
+            <label class="choice">
+              <input type="checkbox" id="toggle-driven" checked />
+              <span>Driven routes</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Import Route</h2>
+          <label class="file-picker" for="route-file">
+            <span>Choose GPX or GeoJSON</span>
+            <input id="route-file" type="file" accept=".gpx,.geojson,.json" />
+          </label>
+          <p class="muted">
+            Imported routes are stored in your browser’s local storage on this
+            machine.
+          </p>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <h2>Driven Routes</h2>
+            <div class="stats-chip">
+              <span id="route-count">0</span>
+              <span>routes</span>
+            </div>
+          </div>
+          <div class="stats-row">
+            <span>Total distance</span>
+            <strong id="total-distance">0.0 km</strong>
+          </div>
+          <ul class="route-list" id="route-list"></ul>
+        </section>
+
+        <section class="card">
+          <h2>Legend</h2>
+          <div class="legend-item">
+            <span class="swatch driven"></span>
+            <span>Driven routes</span>
+          </div>
+          <div class="legend-item">
+            <span class="swatch boundary"></span>
+            <span>Colorado boundary</span>
+          </div>
+          <div class="legend-item">
+            <span class="swatch overlay"></span>
+            <span>Sample scenic overlay</span>
+          </div>
+        </section>
+      </aside>
+
+      <main class="map-column">
+        <section class="map-stage">
+          <div class="map-status" id="map-status">Loading map…</div>
+          <div id="map" class="map-container" aria-label="Colorado map"></div>
+        </section>
+
+        <section class="info-panel">
+          <div class="info-heading">
+            <div>
+              <p class="eyebrow">Selected Feature</p>
+              <h2 id="info-title">Colorado Drive Map</h2>
+            </div>
+            <span class="info-tag">Local-first</span>
+          </div>
+          <p id="info-description">
+            Import GPX or GeoJSON routes to highlight roads you have driven
+            across Colorado.
+          </p>
+          <p id="cursor-readout" class="muted">
+            Cursor: move across Colorado to inspect approximate elevation.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <noscript>
+      <div class="noscript-banner">
+        JavaScript is required for the interactive map to run.
+      </div>
+    </noscript>
+
+    <script
+      defer
+      src="https://unpkg.com/maplibre-gl@5.3.0/dist/maplibre-gl.js"
+    ></script>
+    <script defer src="./app.js"></script>
+  </body>
+</html>

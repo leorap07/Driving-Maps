@@ -1,0 +1,9 @@
+node_modules
+pnpm-lock.yaml
+client/dist
+server/dist
+.env
+.DS_Store
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

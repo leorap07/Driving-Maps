@@ -1,0 +1,13 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Sample Scenic Area" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-106.2,39.5],[-105.9,39.5],[-105.9,39.8],[-106.2,39.8],[-106.2,39.5]]]
+      }
+    }
+  ]
+}

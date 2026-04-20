@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Front Range Loop" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-104.9903,39.7392],
+          [-105.2705,40.0150],
+          [-104.8214,38.8339],
+          [-104.9903,39.7392]
+        ]
+      }
+    }
+  ]
+}
